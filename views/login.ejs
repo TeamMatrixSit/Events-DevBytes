@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EVENT!</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="css/styles.css"> -->
+
+ 
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="css/bootstrap-social.css">
+</head>
+<style>
+    .form-group1 {
+        width: 20px;
+        height: 20px;
+        
+    }
+    .center {
+  margin:auto;
+  justify-content: center;
+  position: relative;
+  width: 50%;
+  padding: 10px;
+}
+
+  
+</style>
+<body>
+<div class="center"> 
+  <div class="container mt-5">
+    <h1>Login</h1>
+  
+    <div class="row" >
+      <div class="col-sm-8">
+        <div class="card">
+          <div class="card-body">
+  
+            <!-- Makes POST request to /login route -->
+            <form action="/login" method="POST">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="user_email">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="user_password" id="myInput"><br>
+                <input class="form-group1" type="checkbox" onclick="myFunction()">&emsp;Show Password
+              </div>
+              <script>
+                function myFunction() {
+              var x = document.getElementById("myInput");
+              if (x.type === "password") {
+                x.type = "text";
+              } else {
+                x.type = "password";
+              }
+            }
+            </script>
+              <button type="submit" class="btn btn-dark">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  <br>
+      <div class="col-sm-3"> 
+        <div class="card">
+          <div class="card-body">
+            <a class="btn btn-block btn-google" href="/auth/google" role="button">
+              <i class="fab fa-google"></i>
+              Sign In with Google
+            </a>
+          </div>
+        </div>
+        <div class="card" >
+          <div class="card-body">
+            <a class="btn btn-block btn-github" href="/auth/github" role="button">
+              <i class="fab fa-github"></i>
+              Sign In with Github
+            </a>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    </div>
+  </div>
+</body>
+</html>
