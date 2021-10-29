@@ -70,10 +70,13 @@ const adminSchema = new mongoose.Schema({
 })
 
 const eventSchema = new mongoose.Schema({
-  event_name: String,
-  event_date: String,
-  event_img_url: String,
-  event_time: String
+  event_name:String,
+  event_organizer:String,
+  event_image_url:String,
+  type:String,
+  start_date:String,
+  event_days:Number,
+  event_description:String
 })
 
 
@@ -387,6 +390,44 @@ app.post('/adminsignup', passport.authenticate('admin-signup', {
 app.get("/",(req,res)=>{
   res.render("index");
 });
+
+app.get("/addevent",(req,res)=>{
+  if(req.isAuthenticated())
+  {
+      res.render("addevent");
+  }
+  else
+  {
+    res.redirect("/adminlogin");
+  }
+})
+
+
+
+
+app.post("/addevent",(req,res)=>{
+  if(req.isAuthenticated())
+  {
+    const eventx= new event({
+
+      event_name:req.body.event_name,
+      event_organizer:req.body.event_organizer,
+      event_image_url:req.body.event_image_url,
+      type:req.body.type,
+      start_date:req.body.start_date,
+      event_days:req.body.event_days,
+      event_description:req.body.event_description
+
+    });
+
+    eventx.save();
+    res.redirect("/adminhome");
+  }
+  else
+  {
+    res.redirect("/adminlogin");
+  }
+})
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started sucessfully")

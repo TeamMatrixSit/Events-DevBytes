@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Event!
+    </title>
+</head>
+
+
+
+<body>
+    <form action="/addevent" method="post">
+
+        <label for="name">Event Name</label>
+        <input type="text" name="event_name">
+
+        <label for="name">Event Organizer</label>
+        <input type="text" name="event_Organizer">
+
+        <label for="">Event Image Url</label>
+        <input type="url" name="event_image_url">
+
+        <label for="type">Event Type</label>
+
+        <select name="type">
+            <option value="Technical">Technical</option>
+            <option value="Non-Technical">Non-Technical</option>
+        </select>
+
+        <label for="startdate">Start date:</label>
+        <input type="date"  name="start_date" value="2021-10-01" min="2021-10-01" max="2023-12-31">
+
+        <label for="days">No.Of.Days</label>
+        <input type="text" name="event_days">
+
+        <label for="desc">Event_description</label>
+        <input type="textarea" name="event_description">
+
+        <button type="submit" >Submit</button>
+
+    </form>
+
+
+
+
+
+
+</body>
+
+</html>
