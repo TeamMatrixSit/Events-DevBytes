@@ -362,6 +362,9 @@ app.post('/adminlogin',
   })
 );
 
+app.get("/",(req,res)=>{
+  res.render("index");
+})
 
 app.get("/adminsignup",(req,res)=>{
   res.render("adminsignup");
