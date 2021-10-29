@@ -1,118 +1,410 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
+  <head>
+    <!--Bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/1c2c2462bf.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EVENT!</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
 
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/bootstrap-social.css" />
 
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/bootstrap-social.css">
-</head>
-<style>
-  .form-group1 {
-    width: 20px;
-    height: 20px;
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: skyblue;
+      }
+      h1 {
+        margin: 15px 0 25px;
+        text-align: center;
+        font-size: 30px;
+      }
+      input {
+        color: #022255 !important;
+      }
+      input[type="email"]:focus,
+      input[type="password"]:focus,
+      input[type="text"]:focus {
+        box-shadow: 0 0 5px rgba(246, 8, 118, 0.8);
+        border: 1px solid rgba(246, 8, 118, 0.8);
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-  }
+      .form-horizontal {
+        width: 400px;
+        background-color: #ffff;
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: 2 2 15px rgba(0, 0, 0, 0.5);
+      }
+      .control-label {
+        text-align: left !important;
+        padding-bottom: 4px;
+      }
+      .progress {
+        height: 3px !important;
+      }
+      .form-group {
+        margin-bottom: 10px;
+      }
+      .show-password {
+        position: absolute;
+        right: 8%;
+        top: 5%;
+      }
+      .progress-bar-danger {
+        background-color: #e90f10;
+      }
+      .progress-bar-warning {
+        background-color: #ffad00;
+      }
+      .progress-bar-success {
+        background-color: #00ff00;
+      }
+      .login-btn {
+        width: 180px !important;
+        background-image: linear-gradient(
+          to right,
+          #f6086e,
+          #ff133a
+        ) !important;
+        font-size: 18px;
+        color: #ffff;
+        margin: 0 auto 5px;
+        padding: 8px 0;
+      }
+      .login-btn:hover {
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 0, 111, 0.8),
+          rgba(247, 2, 43, 0.8)
+        ) !important;
+        color: #fff;
+      }
+      .fa-eye {
+        color: #022255;
+        cursor: pointer;
+      }
+      .ex-account p a {
+        color: #f6086e;
+        text-decoration: underline;
+      }
+      .fa-cirlce {
+        font-size: 4px;
+      }
+      .fa-check {
+        color: #02b502;
+      }
+    </style>
+  </head>
 
-  .center {
-    margin: auto;
-    justify-content: center;
-    position: relative;
-    width: 50%;
-    padding: 10px;
-  }
-</style>
-
-<body>
-  <div class="center">
-    <div class="container mt-5">
-      <h1>Sign up</h1>
-
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="card">
-            <div class="card-body">
-
-              <!-- Makes POST request to /login route -->
-              <form action="/signup" method="POST">
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" class="form-control" name="user_email">
-                </div>
-                <div class="form-group">
-                  <label for="email">Username</label>
-                  <input type="text" class="form-control" name="user_username">
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" name="user_password" id="password" onkeyup='check();'><br>
-                </div>
-                <div class="form-group">
-                  <label for="confirm_password">Confirm password</label>
-                  <input type="password" class="form-control" name="confirm_password" id="confirm_password"
-                    onkeyup='check();'><br>
-                  <span id='message'></span>
-
-                </div>
-                <script>
-                  var check = function () {
-                    if (document.getElementById('password').value ==
-                      document.getElementById('confirm_password').value && document.getElementById('confirm_password')
-                      .value != '' && document.getElementById('password').value != '') {
-
-                      document.getElementById('message').style.color = 'green';
-                      document.getElementById('message').innerHTML = 'matching';
-                    } else {
-                      if (document.getElementById('confirm_password').value != '') {
-                        document.getElementById('message').style.color = 'red';
-                        document.getElementById('message').innerHTML = 'not matching';
-                      }
-                    }
-                  }
-                </script>
-                <button type="submit" class="btn btn-dark">Sign Up</button>
-              </form>
+  <body>
+    <div class="container">
+      <form
+        action="/signup"
+        class="form-horizontal"
+        method="POST"
+        id="validateForm"
+      >
+        <h1>Sign Up</h1>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-md-12 control-label" for="textinput">
+              username
+            </label>
+            <div class="col-md-12">
+              <input
+                id="name"
+                name="user_username"
+                type="text"
+                placeholder="Enter your name"
+                class="form-control input-md"
+                required=""
+              />
             </div>
           </div>
-        </div>
-      </div>
-      <br>
-      <div class="col-sm-3">
-        <div class="card">
-          <div class="card-body">
-            <a class="btn btn-block btn-google" href="/auth/google" role="button">
-              <i class="fab fa-google"></i>
-              Sign up with Google
-            </a>
+          <div class="form-group">
+            <label class="col-md-12 control-label" for="textinput">
+              Email
+            </label>
+            <div class="col-md-12">
+              <input
+                id="email"
+                name="user_email"
+                type="email"
+                placeholder="Enter your email"
+                class="form-control input-md"
+                required=""
+              />
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <a class="btn btn-block btn-github" href="/auth/github" role="button">
-              <i class="fab fa-github"></i>
-              Sign up with Github
-            </a>
+          <div class="form-group">
+            <label class="col-md-12 control-label" for="password">
+              Password
+            </label>
+            <div class="col-md-12">
+              <input
+                id="password"
+                name="user_password"
+                type="password"
+                placeholder="Enter your password"
+                class="form-control input-md"
+                required=""
+                onkeyup="check();"
+              />
+            </div>
           </div>
-        </div>
-      </div>
-
+          <div class="form-group">
+            <label class="col-md-12 control-label" for="confirmPassword">
+              Confirm Password
+            </label>
+            <div class="col-md-12">
+              <input
+                id="confirmPassword"
+                name="confirm_password"
+                type="password"
+                placeholder="Confirm your password"
+                class="form-control input-md"
+                required=""
+                onkeyup="check();"
+              />
+            </div>
+            <div id="popover-password">
+              <p><span id="result"> </span></p>
+              <div class="progress">
+                <div
+                  id="password-strength"
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="40"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <ul class="list-unstyled">
+                <li>
+                  <span class="low-upper-case">
+                    <i class="fas fa-circle" aria-hidden="true"></i>
+                    Lowercase &amp; Uppercase
+                  </span>
+                </li>
+                <li>
+                  <span class="one-number">
+                    <i class="fas fa-circle" aria-hidden="true"></i>
+                    Number (0-9)
+                  </span>
+                </li>
+                <li>
+                  <span class="one-special-char">
+                    <i class="fas fa-circle" aria-hidden="true"></i>
+                    Special Character (e.g. !@#$%^&*)
+                  </span>
+                </li>
+                <li>
+                  <span class="eight-char">
+                    <i class="fas fa-circle" aria-hidden="true"></i>
+                    Atleast 8 Characters
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+              <button id="submit" name="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div> -->
+          <!-- </div> -->
+          <div class="form-group">
+            <button class="btn login-btn btn-block" type="submit" > Create Account</button> 
+          </div>
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <a
+                  class="btn btn-block btn-google"
+                  href="/auth/google"
+                  role="button"
+                >
+                  <i class="fab fa-google"></i>
+                  Sign up with Google
+                </a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <a
+                  class="btn btn-block btn-github"
+                  href="/auth/github"
+                  role="button"
+                >
+                  <i class="fab fa-github"></i>
+                  Sign up with Github
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="ex-account text-centre">
+            <p>&emsp;Already Have an account? SignIn <a href="/login">Here</a></p>
+          </div>
+        </fieldset>
+      </form>
     </div>
-  </div>
-  </div>
-</body>
+    <script>
+      let state = false;
+      let password = document.getElementById("password");
+      let passwordstrength = document.getElementById("password-strength");
+      let lowerUpperCase = document.querySelector(".low-upper-case i");
+      let number = document.querySelector(".one-number i");
+      let specialChar = document.querySelector(".one-special-char i");
+      let eightChar = document.querySelector(".eight-char i");
 
+      function myfunction(show) {
+        show.classList.toggle("fa-eye-slash");
+      }
+      function toggle() {
+        if (state) {
+          password.setAttribute("type", "password");
+          state = false;
+        } else {
+          password.setAttribute("type", "text");
+          state = true;
+        }
+      }
+      password.addEventListener("keyup", function () {
+        let pass = password.value;
+        checkStrength(pass);
+      });
+      function checkStrength(password) {
+        let strength = 0;
+        if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+          strength += 1;
+          lowerUpperCase.classList.add("fa-check");
+          lowerUpperCase.classList.remove("fa-circle");
+        } else {
+          lowerUpperCase.classList.add("fa-circle");
+          lowerUpperCase.classList.remove("fa-check");
+        }
+
+        // if password has a number
+        if (password.match(/([0-9])/)) {
+          strength += 1;
+          number.classList.add("fa-check");
+          number.classList.remove("fa-circle");
+        } else {
+          number.classList.add("fa-circle");
+          number.classList.remove("fa-check");
+        }
+        //if password has one special character
+        if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+          strength += 1;
+          specialChar.classList.add("fa-check");
+          specialChar.classList.remove("fa-circle");
+        } else {
+          specialChar.classList.add("fa-circle");
+          specialChar.classList.remove("fa-check");
+        }
+        //if password has 8 characters
+        if (password.length > 7) {
+          eightChar.classList.add("fa-check");
+          eightChar.classList.remove("fa-circle");
+        } else {
+          eightChar.classList.add("fa-circle");
+          eightChar.classList.remove("fa-check");
+        }
+      }
+      if (strength == 0) {
+        passwordstrength.style = "width: 0%";
+      } else if (strength == 2) {
+        passwordstrength.style = "width: 10%";
+        passwordstrength.classList.add("progress-bar-danger");
+        passwordstrength.classList.remove("progress-bar-warning");
+        passwordstrength.classList.remove("progress-bar-success");
+      } else if (strength == 3) {
+        passwordstrength.style = "width: 60%";
+        passwordstrength.classList.add("progress-bar-warning");
+        passwordstrength.classList.remove("progress-bar-danger");
+        passwordstrength.classList.remove("progress-bar-success");
+      } else if (strength == 4) {
+        passwordstrength.style = "width: 100%";
+        passwordstrength.classList.add("progress-bar-warning");
+        passwordstrength.classList.remove("progress-bar-danger");
+        passwordstrength.classList.remove("progress-bar-success");
+      }
+      var check = function () {
+        if (
+          document.getElementById("password").value ==
+            document.getElementById("confirm_password").value &&
+          document.getElementById("confirm_password").value != "" &&
+          document.getElementById("password").value != ""
+        ) {
+          document.getElementById("message").style.color = "green";
+          document.getElementById("message").innerHTML = "matching";
+        } else {
+          if (document.getElementById("confirm_password").value != "") {
+            document.getElementById("message").style.color = "red";
+            document.getElementById("message").innerHTML = "not matching";
+          }
+        }
+      };
+    </script>
+  </body>
 </html>
