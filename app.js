@@ -95,8 +95,21 @@ passport.serializeUser((userx, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const USER = await user.findById(id);
-  done(null, USER);
+
+  user.findById(id,(err,user)=>{
+    if(err) done(err);
+    if(user){
+      done(null,user);
+    }
+    else
+    {
+      admin.findById(id,(err,user)=>{
+        if(err) done(err);
+        done(null,user);
+      })
+    }
+  })
+  
 });
 
 
@@ -362,9 +375,6 @@ app.post('/adminlogin',
   })
 );
 
-app.get("/",(req,res)=>{
-  res.render("index");
-})
 
 app.get("/adminsignup",(req,res)=>{
   res.render("adminsignup");
