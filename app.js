@@ -384,6 +384,9 @@ app.post('/adminsignup', passport.authenticate('admin-signup', {
   successRedirect: '/adminhome',
   failureRedirect: '/adminsignup'
 }));
+app.get("/",(req,res)=>{
+  res.render("index");
+});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started sucessfully")
