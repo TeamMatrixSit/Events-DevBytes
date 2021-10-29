@@ -13,7 +13,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Events</title>
+    <title>events-homepage</title>
   </head>
   <body class="font-Poppins">
     
@@ -24,9 +24,8 @@
           <li class="cursor-pointer">Features</li>
           <li class="cursor-pointer">FAQ</li>
           <li class="cursor-pointer">Contact</li>
-          <form action="/login" method="get">
-            <button type="submit" class="bg-bookmark-red text-white rounded-md px-7 py-3 uppercase" >Login</button>
-          </form>
+          <form action="/" method="get">
+            <button type="submit" class="bg-bookmark-red text-white rounded-md px-7 py-3 hover:bg-bookmark-white hover:text-black">Login/Signup</button></form>
           
         </ul>
         <div class="flex sm:hidden flex-1 justify-end">
@@ -48,12 +47,7 @@
             by participating in the events 
           </p>
           <div class="flex justify-center flex-wrap gap-6">
-            <button type="button" class="btn btn-purple hover:bg-bookmark-white hover:text-black">
-              Signup
-            </button>
-            <button type="button" class="btn btn-white hover:bg-bookmark-purple hover:text-white">
-              Login
-            </button>
+            
           </div>
         </div>
         
@@ -104,7 +98,7 @@
           <div class="flex flex-1 justify-center z-10 mb-10 lg:mb-0">
             <img
               class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full"
-              src="./imgs/illustration-features-tab-2.png"
+              src="./imgs/ongoing.png"
               alt=""
             />
           </div>
@@ -140,7 +134,7 @@
           <div class="flex flex-1 justify-center z-10 mb-10 lg:mb-0">
             <img
               class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full"
-              src="./imgs/illustration-features-tab-3.png"
+              src="./imgs/upcom.png"
               alt=""
             />
           </div>
@@ -184,47 +178,35 @@
       <div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-screen-lg mt-16">
         
         <div class="flex flex-col rounded-md shadow-md lg:mb-16">
-          <div class="p-6 flex flex-col items-center">
+          <div class="group border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent p-6 flex flex-col items-center">
             <img src="./imgs/add_event.png" alt="" />
-            <h3 class="mt-5 mb-2 text-bookmark-blue text-lg">ADD EVENT</h3>
-            <p class="mb-2 text-bookmark-grey font-light">Easily add events with description</p>
+            <h3 class="text-indigo-600 group-hover:text-gray-900 mt-5 mb-2 text-bookmark-blue text-lg">ADD EVENT</h3>
+            <p class="text-indigo-600 group-hover:text-gray-900 mb-2 text-bookmark-grey font-light">Easily add events with description</p>
           </div>
           <hr class="border-b border-bookmark-white" />
-          <div class="flex p-6">
-            <button type="button" class="flex-1 btn btn-purple hover:bg-bookmark-white hover:text-black">
-              Add Event
-            </button>
-          </div>
+         
         </div>
         
         <div class="flex flex-col rounded-md shadow-md lg:my-8">
-          <div class="p-6 flex flex-col items-center">
+          <div class="group border-indigo-500 hover:bg-blue hover:shadow-lg hover:border-transparent p-6 flex flex-col items-center">
             <img src="./imgs/register_event.png" alt="" />
-            <h3 class="mt-5 mb-2 text-bookmark-blue text-lg">REGISTER</h3>
-            <p class="mb-2 text-bookmark-grey font-light">Participants can register for an event on one-click</p>
+            <h3 class="text-indigo-600 group-hover:text-gray-900 mt-5 mb-2 text-bookmark-blue text-lg">REGISTER</h3>
+            <p class="text-indigo-600 group-hover:text-gray-900 mb-2 text-bookmark-grey font-light">Participants can register for an event on one-click</p>
           </div>
           <hr class="border-b border-bookmark-white" />
-          <div class="flex p-6">
-            <button type="button" class="flex-1 btn btn-purple hover:bg-bookmark-white hover:text-black">
-              Register event
-            </button>
-          </div>
+          
         </div>
         
         <div class="flex flex-col rounded-md shadow-md lg:mt-16">
-          <div class="p-6 flex flex-col items-center">
+          <div class="group border-indigo-500 hover:bg-indigo hover:shadow-lg hover:border-transparent p-4 flex flex-col items-center">
             <img src="./imgs/profile1.png" alt="" />
-            <h3 class="mt-5 mb-2 text-bookmark-blue text-lg">View 
+            <h3 class="text-indigo-600 group-hover:text-gray-900 mt-5 mb-2 text-bookmark-blue text-lg">View 
               profile
             </h3>
-            <p class="mb-2 text-bookmark-grey font-light">Participants profile displays the registered and participated events of the user</p>
+            <p class="text-indigo-600 group-hover:text-gray-900 mb-2 text-bookmark-grey font-light">Participants profile displays the registered and participated events of the user</p>
           </div>
           <hr class="border-b border-bookmark-white" />
-          <div class="flex p-6">
-            <button type="button" class="flex-1 btn btn-purple hover:bg-bookmark-white hover:text-black">
-              View Profile
-            </button>
-          </div>
+          
         </div>
       </div>
     </section>
@@ -242,6 +224,7 @@
         
         <div class="flex flex-col sm:w-3/4 lg:w-5/12 mt-12 mx-auto">
           <div class="flex items-center border-b py-4">
+            
             <span class="flex-1">How to register an event?</span>
             <i class="text-bookmark-purple fas fa-chevron-down"></i>
           </div>
@@ -257,9 +240,7 @@
             <span class="flex-1">Who can participate?</span>
             <i class="text-bookmark-purple fas fa-chevron-down"></i>
           </div>
-          <button type="button" class="mt-12 flex self-center btn btn-purple hover:bg-bookmark-white hover:text-black">
-            More Info
-          </button>
+         
         </div>
       </div>
     </section>

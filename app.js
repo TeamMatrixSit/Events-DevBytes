@@ -214,7 +214,7 @@ passport.use('login', new localStrategy({
 
 
 //LOCAL AUTH FOR ADMIN- LOGIN
-passport.use('login', new localStrategy({
+passport.use('admin-login', new localStrategy({
   usernameField: 'admin_email',
   passwordField: 'admin_password',
   passReqToCallback: true
@@ -231,7 +231,7 @@ passport.use('login', new localStrategy({
         message: 'Incorrect username.'
       });
     }
-    bcrypt.compare(req.body.admin_password, admin.password, function (err, res) {
+    bcrypt.compare(req.body.admin_password, user.password, function (err, res) {
       if (res) {
         return done(null, user);
       } else {
