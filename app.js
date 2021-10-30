@@ -252,7 +252,7 @@ passport.use('admin-login', new localStrategy({
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECERT,
-    callbackURL: "http://localhost:3000/auth/google/home",
+    callbackURL: "https://events01.herokuapp.com/auth/google/home",
     userProfile: "https://www.googleapis.com/oauth2/userinfo"
   },
   function (accessToken, refreshToken, profile, cb) {
@@ -272,7 +272,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/github/home"
+    callbackURL: "https://events01.herokuapp.com//auth/github/home"
   },
   function (accessToken, refreshToken, profile, done) {
 
