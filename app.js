@@ -127,7 +127,7 @@ passport.use('signup', new localStrategy({
     if (err)
       return done(err)
     if (docs) {
-      console.log("already");
+
       return done(null, false);
     } else {
       const name = req.body.user_username;
@@ -157,7 +157,6 @@ passport.use('admin-signup', new localStrategy({
     if (err)
       return done(err)
     if (docs) {
-      console.log("already");
       return done(null, false);
     } else {
       const name = req.body.admin_username;
@@ -184,7 +183,7 @@ passport.use('login', new localStrategy({
   passReqToCallback: true
 
 }, async (req, user_email, user_password, done) => {
-  console.log(req.body);
+
   user.findOne({
     emailId: req.body.user_email
   }, function (err, user) {
@@ -222,7 +221,7 @@ passport.use('admin-login', new localStrategy({
   passReqToCallback: true
 
 }, async (req, admin_email, admin_password, done) => {
-  console.log(req.body);
+
   admin.findOne({
     emailId: req.body.admin_email
   }, function (err, user) {
@@ -338,37 +337,37 @@ app.route("/login")
 
 app.get("/home", (req, res) => {
   if (req.isAuthenticated()) {
-    var missed=[]
-    var upcoming=[]
-    var ongoing=[]
+    var missed = []
+    var upcoming = []
+    var ongoing = []
     event.find({}, (err, docs) => {
       docs.forEach(element => {
         var dd = element.start_date;
-        dd=dd.toString();
-        
+        dd = dd.toString();
+
 
         var rightNow = new Date();
-        var res = rightNow.toISOString().slice(0,10).replace(/-/g,"-");
-        res=res.toString();
+        var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "-");
+        res = res.toString();
 
 
-        if(res>dd)
-        {
+        if (res > dd) {
           missed.push(element);
-        }
-        else if(res==dd)
-        {
+        } else if (res == dd) {
           ongoing.push(element);
-        }
-        else
-        upcoming.push(element);
+        } else
+          upcoming.push(element);
 
-      
+
 
       });
 
 
-      res.render("home",{miss:missed , on : ongoing , up: upcoming});
+      res.render("home", {
+        miss: missed,
+        on: ongoing,
+        up: upcoming
+      });
     })
 
 
@@ -444,7 +443,7 @@ app.post("/addevent", (req, res) => {
       event_image_url: req.body.event_image_url,
       type: req.body.type,
       start_date: req.body.start_date,
-      event_days: req.body.event_days,
+      start_date: req.body.end_date,
       event_description: req.body.event_description,
       event_mail: req.body.event_mail
 
