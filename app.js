@@ -272,7 +272,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://events01.herokuapp.com//auth/github/home"
+    callbackURL: "https://events01.herokuapp.com/auth/github/home"
   },
   function (accessToken, refreshToken, profile, done) {
 
