@@ -457,6 +457,39 @@ app.post("/addevent", (req, res) => {
   }
 })
 
+app.post("/custom",(req,res)=>{
+  if(req.isAuthenticated())
+  {
+    res.redirect("/"+req.body.info);}
+    else
+    res.redirect("/login");
+})
+
+app.get("/:custom_routes",(req,res)=>{
+  if(req.isAuthenticated()){
+  Custom_route_Name = req.params.custom_routes;
+  event.findById(Custom_route_Name,(err,docs)=>{
+    res.render("info",{ele:docs});
+  })
+  
+  }
+  else
+  res.redirect("/login");
+
+
+})
+
+app.post("/register",(req,res)=>{
+  if(req.isAuthenticated())
+  {
+    console.log(req.body);
+    res.redirect("/home");
+  }
+  else
+  res.redirect("/login");
+
+})
+
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started sucessfully")
 });
