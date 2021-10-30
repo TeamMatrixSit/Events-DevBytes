@@ -35,7 +35,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 60000,
+    maxAge: 600000,
     secure: false
   }
 }));
@@ -70,14 +70,14 @@ const adminSchema = new mongoose.Schema({
 })
 
 const eventSchema = new mongoose.Schema({
-  event_name:String,
-  event_organizer:String,
-  event_image_url:String,
-  type:String,
-  start_date:String,
-  event_days:Number,
-  event_description:String,
-  email_mail:String
+  event_name: String,
+  event_organizer: String,
+  event_image_url: String,
+  type: String,
+  start_date: String,
+  event_days: Number,
+  event_description: String,
+  email_mail: String
 })
 
 
@@ -100,20 +100,18 @@ passport.serializeUser((userx, done) => {
 
 passport.deserializeUser(async (id, done) => {
 
-  user.findById(id,(err,user)=>{
-    if(err) done(err);
-    if(user){
-      done(null,user);
-    }
-    else
-    {
-      admin.findById(id,(err,user)=>{
-        if(err) done(err);
-        done(null,user);
+  user.findById(id, (err, user) => {
+    if (err) done(err);
+    if (user) {
+      done(null, user);
+    } else {
+      admin.findById(id, (err, user) => {
+        if (err) done(err);
+        done(null, user);
       })
     }
   })
-  
+
 });
 
 
@@ -123,15 +121,15 @@ passport.use('signup', new localStrategy({
   passwordField: 'user_password',
   passReqToCallback: true
 }, async (req, user_email, user_password, done) => {
-  user.findOne({emailId:req.body.user_email},async (err,docs)=>{
-    if(err)
-    return done(err)
-    if(docs)
-    {
+  user.findOne({
+    emailId: req.body.user_email
+  }, async (err, docs) => {
+    if (err)
+      return done(err)
+    if (docs) {
       console.log("already");
-      return done(null,false);
-    }
-    else{
+      return done(null, false);
+    } else {
       const name = req.body.user_username;
       const emailId = req.body.user_email;
       var salt = bcrypt.genSaltSync(10);
@@ -153,15 +151,15 @@ passport.use('admin-signup', new localStrategy({
   passwordField: 'admin_password',
   passReqToCallback: true
 }, async (req, admin_email, admin_password, done) => {
-  admin.findOne({emailId:req.body.admin_email},async (err,docs)=>{
-    if(err)
-    return done(err)
-    if(docs)
-    {
+  admin.findOne({
+    emailId: req.body.admin_email
+  }, async (err, docs) => {
+    if (err)
+      return done(err)
+    if (docs) {
       console.log("already");
-      return done(null,false);
-    }
-    else{
+      return done(null, false);
+    } else {
       const name = req.body.admin_username;
       const emailId = req.body.admin_email;
       var salt = bcrypt.genSaltSync(10);
@@ -278,7 +276,7 @@ passport.use(new GitHubStrategy({
     callbackURL: "http://localhost:3000/auth/github/home"
   },
   function (accessToken, refreshToken, profile, done) {
-   
+
     user.findOrCreate({
 
       githubId: profile.id,
@@ -339,17 +337,51 @@ app.route("/login")
   })
 
 app.get("/home", (req, res) => {
-  if(req.isAuthenticated())
-  res.render("home");
-  else
-  res.redirect("/login");
+  if (req.isAuthenticated()) {
+    var missed=[]
+    var upcoming=[]
+    var ongoing=[]
+    event.find({}, (err, docs) => {
+      docs.forEach(element => {
+        var dd = element.start_date;
+        dd=dd.toString();
+        
+
+        var rightNow = new Date();
+        var res = rightNow.toISOString().slice(0,10).replace(/-/g,"-");
+        res=res.toString();
+
+
+        if(res>dd)
+        {
+          missed.push(element);
+        }
+        else if(res==dd)
+        {
+          ongoing.push(element);
+        }
+        else
+        upcoming.push(element);
+
+      
+
+      });
+
+
+      res.render("home",{miss:missed , on : ongoing , up: upcoming});
+    })
+
+
+
+  } else
+    res.redirect("/login");
 })
 
 app.get("/adminhome", (req, res) => {
-  if(req.isAuthenticated())
-  res.render("adminhome");
+  if (req.isAuthenticated())
+    res.render("adminhome");
   else
-  res.redirect("/adminlogin");
+    res.redirect("/adminlogin");
 })
 
 app.get("/signup", (req, res) => {
@@ -368,7 +400,7 @@ app.post('/login',
   })
 );
 
-app.get("/adminlogin",(req,res)=>{
+app.get("/adminlogin", (req, res) => {
   res.render("adminlogin");
 });
 
@@ -380,7 +412,7 @@ app.post('/adminlogin',
 );
 
 
-app.get("/adminsignup",(req,res)=>{
+app.get("/adminsignup", (req, res) => {
   res.render("adminsignup");
 });
 
@@ -388,17 +420,14 @@ app.post('/adminsignup', passport.authenticate('admin-signup', {
   successRedirect: '/adminhome',
   failureRedirect: '/adminsignup'
 }));
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/addevent",(req,res)=>{
-  if(req.isAuthenticated())
-  {
-      res.render("addevent");
-  }
-  else
-  {
+app.get("/addevent", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("addevent");
+  } else {
     res.redirect("/adminlogin");
   }
 })
@@ -406,27 +435,24 @@ app.get("/addevent",(req,res)=>{
 
 
 
-app.post("/addevent",(req,res)=>{
-  if(req.isAuthenticated())
-  {
-    const eventx= new event({
+app.post("/addevent", (req, res) => {
+  if (req.isAuthenticated()) {
+    const eventx = new event({
 
-      event_name:req.body.event_name,
-      event_organizer:req.body.event_organizer,
-      event_image_url:req.body.event_image_url,
-      type:req.body.type,
-      start_date:req.body.start_date,
-      event_days:req.body.event_days,
-      event_description:req.body.event_description,
-      event_mail:req.body.event_mail
+      event_name: req.body.event_name,
+      event_organizer: req.body.event_organizer,
+      event_image_url: req.body.event_image_url,
+      type: req.body.type,
+      start_date: req.body.start_date,
+      event_days: req.body.event_days,
+      event_description: req.body.event_description,
+      event_mail: req.body.event_mail
 
     });
 
     eventx.save();
     res.redirect("/adminhome");
-  }
-  else
-  {
+  } else {
     res.redirect("/adminlogin");
   }
 })
