@@ -75,9 +75,9 @@ const eventSchema = new mongoose.Schema({
   event_image_url: String,
   type: String,
   start_date: String,
-  event_days: Number,
+  end_date: String,
   event_description: String,
-  email_mail: String
+  event_mail: String
 })
 
 
@@ -343,6 +343,7 @@ app.get("/home", (req, res) => {
     event.find({}, (err, docs) => {
       docs.forEach(element => {
         var dd = element.start_date;
+        var ed = element.end_date;
         dd = dd.toString();
 
 
@@ -351,9 +352,9 @@ app.get("/home", (req, res) => {
         res = res.toString();
 
 
-        if (res > dd) {
+        if (res > ed ) {
           missed.push(element);
-        } else if (res == dd) {
+        } else if (res <=ed && res>=dd) {
           ongoing.push(element);
         } else
           upcoming.push(element);
@@ -443,7 +444,7 @@ app.post("/addevent", (req, res) => {
       event_image_url: req.body.event_image_url,
       type: req.body.type,
       start_date: req.body.start_date,
-      start_date: req.body.end_date,
+      end_date: req.body.end_date,
       event_description: req.body.event_description,
       event_mail: req.body.event_mail
 

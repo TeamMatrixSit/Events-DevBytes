@@ -14,34 +14,32 @@
   <div id="Ongoing">
     <h1>Ongoing</h1> <br>
 
-    <!-- <section class="row ">
-      <div class="card col-lg-3 col-md-5 col-sm-10">
-        <div class="card-header dognames">
-          <h3>Chihuahua</h3>
-        </div>
-        <div class="card-body">
-          <h2>Free</h2>
-          <p>5 Matches Per Day</p>
-          <p>10 Messages Per Day</p>
-          <p>Unlimited App Usage</p>
-          <div class="card-footer">
-            <button class="btn btn-outline-primary" type="button">Sign Up</button>
-          </div>
-        </div>
-      </div>
 
-
-
-    </section> -->
 
     <% on.forEach(ele=>{ %>
-      <h1><%=ele.event_name%></h1>
+    <h1><%=ele.event_name%></h1>
     <%})%>
 
 
   </div> <br>
-  <div id="Upcoming">Upcoming</div> <br>
-  <div id="Missed">Missed</div> <br>
+  <div id="Upcoming">
+    <h1>Upcoming</h1>
+
+    <% up.forEach(ele=>{ %>
+      <h1><%=ele.event_name%></h1>
+      <%})%>
+
+
+  </div> <br>
+  <div id="Missed">
+    <h1>Missed</h1>
+
+    <% miss.forEach(ele=>{ %>
+      <h1><%=ele.event_name%></h1>
+      <%})%>
+
+
+  </div> <br>
 </body>
 
 
