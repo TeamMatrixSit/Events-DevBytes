@@ -76,7 +76,8 @@ const eventSchema = new mongoose.Schema({
   type:String,
   start_date:String,
   event_days:Number,
-  event_description:String
+  event_description:String,
+  email_mail:String
 })
 
 
@@ -416,7 +417,8 @@ app.post("/addevent",(req,res)=>{
       type:req.body.type,
       start_date:req.body.start_date,
       event_days:req.body.event_days,
-      event_description:req.body.event_description
+      event_description:req.body.event_description,
+      event_mail:req.body.event_mail
 
     });
 
