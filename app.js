@@ -20,7 +20,7 @@ const flush = require("connect-flash");
 
 const app = express();
 
-current=[]
+current = "";
 
 
 app.use(express.static("public"));
@@ -82,10 +82,12 @@ const eventSchema = new mongoose.Schema({
   event_mail: String
 })
 
-const eventuser= new mongoose.Schema({
+const eventuserSchema = new mongoose.Schema({
   event_name: String,
   user_id: String,
-  event_organizer:String,
+  event_organizer: String,
+  start_date: String,
+  end_date:String
 })
 
 
@@ -99,11 +101,12 @@ adminSchema.plugin(findOrCreate);
 const user = mongoose.model('user', userSchema);
 const admin = mongoose.model('admin', adminSchema);
 const event = mongoose.model('event', eventSchema);
+const eventuser = mongoose.model("eventuser",eventuserSchema);
 
 passport.use(user.createStrategy());
 
 passport.serializeUser((userx, done) => {
-  current.push(userx.id);
+  current = userx.id;
   done(null, userx.id);
 });
 
@@ -473,15 +476,38 @@ app.post("/custom", (req, res) => {
   } else
     res.redirect("/login");
 })
-app.get("/about_us",(req,res)=>{
+app.get("/about_us", (req, res) => {
   res.render("about_us");
 })
 
-app.get("/register", (req, res) => {
+app.post("/register", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log("hi");
-    console.log(current.at(-1));
-    res.redirect("/home");
+
+    const userid = req.user._id;
+    user.findById(userid, (err, docs) => {
+      if (err)
+        console.log(err);
+      if (docs) {
+        event.findById(req.body.info,(err,docx)=>{
+          if(err)
+          console.log(err)
+          if(docx)
+          {
+            const eventuserx = new eventuser({
+              event_name: docx.event_name,
+              user_id: docs._id,
+              event_organizer: docx.event_organizer,
+              start_date:docx.start_date,
+              end_date:docx.end_date
+            });
+
+            eventuserx.save();
+          }
+        })
+        
+      }
+      res.redirect("/home");
+    })
   } else
     res.redirect("/login");
 
@@ -492,9 +518,9 @@ app.get("/:custom_routes", (req, res) => {
     Custom_route_Name = req.params.custom_routes;
     try {
       event.findById(Custom_route_Name, (err, docs) => {
-          if (err)
-            res.redirect("/"); 
-          if(docs)
+        if (err)
+          res.redirect("/");
+        if (docs)
           res.render("info", {
             ele: docs
           });

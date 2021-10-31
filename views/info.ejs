@@ -68,24 +68,24 @@
     <%- include('partials/header') %>
   </head>
   <body>
-    <h2>Event Name <%= ele.event_name %> </h2>
+    <h1 style="display: block; text-align: center;"> <i> <%= ele.event_name %> </i> </h1> <hr> <br>
 
     <div class="container">
       <form action="/action_page.php">
         <h2></h2>
-        <div style="text-align: center;"> <img class="centre_" src=<%= ele.event_image_url %>  /> </div>
+        <div style="text-align: center;"> <img class="centre_" src=<%= ele.event_image_url %>  /> </div><hr><br>
         
 
-        <h2>Event Organiser: <%= ele. event_organizer %> </h2>
+        <h2>Event Organiser: <%= ele. event_organizer %> </h2> <hr><br>
 
-        <h4>Start date: <%= ele.start_date %> </h4>
-        <h4>End date: <%= ele.end_date %> </h4>
+        <h4>Start date: <%= ele.start_date %> </h4> <hr><br>
+        <h4>End date: <%= ele.end_date %> </h4><hr><br>
 
-        <h3>Type: <%= ele.type%> </h3>
-        <h3>Email: <%= ele.event_mail %> </h3>
+        <h3>Type: <%= ele.type%> </h3><hr><br>
+        <h3>Email: <%= ele.event_mail %> </h3><hr><br>
 
-        <h4>Event Description:</h4>
-        <h3><%= ele.event_description %> </h3>
+        <h4>Event Description:</h4><hr><br>
+        <h3><%= ele.event_description %> </h3><hr>
       </form>
       <!-- <button
         class="button"
