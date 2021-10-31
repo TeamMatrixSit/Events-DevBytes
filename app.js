@@ -268,7 +268,8 @@ passport.use(new GoogleStrategy({
     userProfile: "https://www.googleapis.com/oauth2/userinfo"
   },
   function (accessToken, refreshToken, profile, cb) {
-
+    const validatingmail = profile.emails[0].value;
+    if (validatingmail.endsWith("@sairamtap.edu.in")) {
     user.findOrCreate({
       googleId: profile.id,
       name: profile.displayName,
@@ -276,6 +277,9 @@ passport.use(new GoogleStrategy({
     }, function (err, user) {
       return cb(err, user);
     });
+  }else {
+    return cb(null, false);
+  }
 
   }
 ));
