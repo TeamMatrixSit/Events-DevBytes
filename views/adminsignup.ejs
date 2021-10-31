@@ -164,6 +164,17 @@
   </head>
 
   <body>
+    <% if(_status!=''){%>
+      <% if(_status=="1"){%>
+          <div class="alert alert-success" role="alert">
+          <h4><%=message%></h4></div>
+      <%}%>
+      <% if(_status=="2"){ %>
+          <div class="alert alert-danger" role="alert">
+          <h4><%=message%></h4></div>
+      <% } %> 
+      
+      <% } %> 
     <div class="container yee">
       <form
         action="/adminsignup"

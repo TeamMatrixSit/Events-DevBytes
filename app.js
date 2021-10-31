@@ -152,6 +152,8 @@ passport.use('signup', new localStrategy({
         emailId,
         password
       });
+      req.flash("status", "1");
+      req.flash("msg", "Successfully Signed Up!");
       return done(null, userx);
     }
   })
@@ -181,6 +183,8 @@ passport.use('admin-signup', new localStrategy({
         emailId,
         password
       });
+      req.flash("status", "1");
+      req.flash("msg", "Successfully Access Granted!");
       return done(null, userx);
     }
   })
@@ -201,7 +205,8 @@ passport.use('login', new localStrategy({
   }, function (err, user) {
     if (err) throw err;
     if (!user) {
-      console.log('Unknown User');
+      req.flash("status", "2");
+      req.flash("msg", "Oops No User Found");
       return done(null, false, {
         message: 'Incorrect username.'
       });
@@ -210,9 +215,13 @@ passport.use('login', new localStrategy({
 
     bcrypt.compare(req.body.user_password, user.password, function (err, res) {
       if (res) {
+        req.flash("status", "1");
+      req.flash("msg", "Successfully logged In!");
         return done(null, user);
       } else {
-        console.log('Invalid Password');
+        req.flash("status", "2");
+      req.flash("msg", "Invalid Password!");
+
         return done(null, false, {
           message: 'Incorrect password.'
         });
@@ -239,16 +248,20 @@ passport.use('admin-login', new localStrategy({
   }, function (err, user) {
     if (err) throw err;
     if (!user) {
-      console.log('Unknown User');
+      req.flash("status", "2");
+      req.flash("msg", "No User Found!!");
       return done(null, false, {
         message: 'Incorrect username.'
       });
     }
     bcrypt.compare(req.body.admin_password, user.password, function (err, res) {
       if (res) {
+        req.flash("status", "1");
+      req.flash("msg", "Welcome Admin!");
         return done(null, user);
       } else {
-        console.log('Invalid Password');
+        req.flash("status", "2");
+      req.flash("msg", "Oops Wrong Password!");
         return done(null, false, {
           message: 'Incorrect password.'
         });
@@ -275,9 +288,13 @@ passport.use(new GoogleStrategy({
       name: profile.displayName,
       emailId: profile.emails[0].value
     }, function (err, user) {
+      req.flash("status", "1");
+      req.flash("msg", "Welcome Sairamite!");
       return cb(err, user);
     });
   }else {
+    req.flash("status", "2");
+      req.flash("msg", "Please Use Official Mail, Else Use Signup ");
     return cb(null, false);
   }
 
@@ -348,11 +365,18 @@ app.get('/auth/github/home',
 
 app.route("/login")
   .get((req, res) => {
-    res.render("login");
+    const message = req.flash("msg");
+    const _status = req.flash("status");
+    res.render("login", {
+      message,
+      _status
+    });
+   
   })
 
 app.get("/home", (req, res) => {
   if (req.isAuthenticated()) {
+
     var missed = []
     var upcoming = []
     var ongoing = []
@@ -380,11 +404,14 @@ app.get("/home", (req, res) => {
 
       });
 
-
+      const message = req.flash("msg");
+    const _status = req.flash("status");
       res.render("home", {
         miss: missed,
         on: ongoing,
-        up: upcoming
+        up: upcoming,
+        message,
+      _status
       });
     })
 
@@ -395,14 +422,26 @@ app.get("/home", (req, res) => {
 })
 
 app.get("/adminhome", (req, res) => {
-  if (req.isAuthenticated())
-    res.render("adminhome");
+  if (req.isAuthenticated()){
+    const message = req.flash("msg");
+    const _status = req.flash("status");
+    res.render("adminhome", {
+      message,
+      _status
+    });
+    }
   else
     res.redirect("/adminlogin");
 })
 
 app.get("/signup", (req, res) => {
-  res.render("signup");
+  const message = req.flash("msg");
+    const _status = req.flash("status");
+    res.render("signup", {
+      message,
+      _status
+    });
+
 });
 
 app.post('/signup', passport.authenticate('signup', {
@@ -418,7 +457,13 @@ app.post('/login',
 );
 
 app.get("/adminlogin", (req, res) => {
-  res.render("adminlogin");
+  const message = req.flash("msg");
+  const _status = req.flash("status");
+  res.render("adminlogin", {
+    message,
+    _status
+  });
+
 });
 
 app.post('/adminlogin',
@@ -430,7 +475,20 @@ app.post('/adminlogin',
 
 
 app.get("/adminsignup", (req, res) => {
-  res.render("adminsignup");
+  if(req.isAuthenticated())
+  { const message = req.flash("msg");
+  const _status = req.flash("status");
+  res.render("adminsignup", {
+    message,
+    _status
+  });
+   
+  }
+  else
+  {
+    res.redirect("/adminlogin");
+  }
+  
 });
 
 app.post('/adminsignup', passport.authenticate('admin-signup', {
@@ -443,7 +501,12 @@ app.get("/", (req, res) => {
 
 app.get("/addevent", (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("addevent");
+    const message = req.flash("msg");
+  const _status = req.flash("status");
+  res.render("addevent", {
+    message,
+    _status
+  });
   } else {
     res.redirect("/adminlogin");
   }
@@ -468,6 +531,8 @@ app.post("/addevent", (req, res) => {
     });
 
     eventx.save();
+    req.flash("status", "1");
+      req.flash("msg", "Successfully Added Event To Our Site!");
     res.redirect("/adminhome");
   } else {
     res.redirect("/adminlogin");
@@ -486,7 +551,6 @@ app.get("/about_us", (req, res) => {
 
 app.post("/register", (req, res) => {
   if (req.isAuthenticated()) {
-
     const userid = req.user._id;
     user.findById(userid, (err, docs) => {
       if (err)
@@ -510,7 +574,13 @@ app.post("/register", (req, res) => {
         })
         
       }
-      res.redirect("/home");
+      const message = req.flash("msg");
+    const _status = req.flash("status");
+    res.render("home", {
+      message,
+      _status
+    });
+
     })
   } else
     res.redirect("/login");
