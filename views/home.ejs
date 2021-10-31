@@ -26,6 +26,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+  <%- include('partials/header') %>
 
   <style>
     body {
@@ -225,6 +226,10 @@
         transform: rotate(0);
       }
     }
+    .__r{
+      height: 250px;
+      object-fit: contain;
+    }
   </style>
 </head>
 
@@ -238,7 +243,7 @@
         <div class="card-header dognames">
           <h4><%= ele.event_name %></h4>
         </div>
-        <img width="340" height="200" src=<%= ele.event_image_url %> />
+        <img class="__r" src=<%= ele.event_image_url %> />
         <div class="card-body">
           <div class="card-footer">
             <form action="/custom" method="POST">
@@ -258,14 +263,14 @@
         <div class="card-header dognames">
           <h4><%= ele.event_name %></h4>
         </div>
-        <img width="340" height="200" src=<%= ele.event_image_url %> />
+        <img class="__r" src=<%= ele.event_image_url %> />
         <div class="card-body">
           <div class="card-footer">
             <form action="/custom" method="POST">
               <button class="btn btn-outline-primary" type="submit" name ="info" value = <%=ele._id %> >More info</button>
             </form>
-            <form action="/register" method="POST">
-              <button class="btn btn-outline-success" type="submit" name ="info" value = <%=ele._id %> >success</button>
+            <form action="/register" method="get">
+              <button class="btn btn-outline-success" type="submit" name ="info" value = <%=ele._id %> >Register</button>
             </form>
           </div>
         </div>
@@ -281,7 +286,7 @@
         <div class="card-header dognames">
           <h4><%= ele.event_name %></h4>
         </div>
-        <img width="340" height="200" src=<%= ele.event_image_url %> />
+        <img class="__r" width="340" height="200" src=<%= ele.event_image_url %> />
         <div class="card-body">
           <div class="card-footer">
             <form action="/custom" method="POST">
@@ -298,6 +303,7 @@
 
 
 </body>
+<%- include('partials/footer') %>
 
 
 

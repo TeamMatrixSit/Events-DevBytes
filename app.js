@@ -20,6 +20,8 @@ const flush = require("connect-flash");
 
 const app = express();
 
+current=[]
+
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -35,7 +37,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 600000,
+    maxAge: 6000000,
     secure: false
   }
 }));
@@ -80,6 +82,12 @@ const eventSchema = new mongoose.Schema({
   event_mail: String
 })
 
+const eventuser= new mongoose.Schema({
+  event_name: String,
+  user_id: String,
+  event_organizer:String,
+})
+
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -95,6 +103,7 @@ const event = mongoose.model('event', eventSchema);
 passport.use(user.createStrategy());
 
 passport.serializeUser((userx, done) => {
+  current.push(userx.id);
   done(null, userx.id);
 });
 
@@ -340,6 +349,7 @@ app.get("/home", (req, res) => {
     var missed = []
     var upcoming = []
     var ongoing = []
+
     event.find({}, (err, docs) => {
       docs.forEach(element => {
         var dd = element.start_date;
@@ -463,6 +473,19 @@ app.post("/custom", (req, res) => {
   } else
     res.redirect("/login");
 })
+app.get("/about_us",(req,res)=>{
+  res.render("about_us");
+})
+
+app.get("/register", (req, res) => {
+  if (req.isAuthenticated()) {
+    console.log("hi");
+    console.log(current.at(-1));
+    res.redirect("/home");
+  } else
+    res.redirect("/login");
+
+})
 
 app.get("/:custom_routes", (req, res) => {
   if (req.isAuthenticated()) {
@@ -470,9 +493,8 @@ app.get("/:custom_routes", (req, res) => {
     try {
       event.findById(Custom_route_Name, (err, docs) => {
           if (err)
-            res.redirect("/");
-          console.log(docs);
-          
+            res.redirect("/"); 
+          if(docs)
           res.render("info", {
             ele: docs
           });
@@ -488,14 +510,7 @@ app.get("/:custom_routes", (req, res) => {
 
 })
 
-app.post("/register", (req, res) => {
-  if (req.isAuthenticated()) {
-    console.log(req.body);
-    res.redirect("/home");
-  } else
-    res.redirect("/login");
 
-})
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started sucessfully")
