@@ -288,13 +288,12 @@ passport.use(new GoogleStrategy({
       name: profile.displayName,
       emailId: profile.emails[0].value
     }, function (err, user) {
-      req.flash("status", "1");
-      req.flash("msg", "Welcome Sairamite!");
+      
       return cb(err, user);
     });
   }else {
-    req.flash("status", "2");
-      req.flash("msg", "Please Use Official Mail, Else Use Signup ");
+    // req.flash("status", "2");
+    //   req.flash("msg", "Please Use Official Mail, Else Use Signup ");
     return cb(null, false);
   }
 
