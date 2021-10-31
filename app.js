@@ -352,9 +352,9 @@ app.get("/home", (req, res) => {
         res = res.toString();
 
 
-        if (res > ed ) {
+        if (res > ed) {
           missed.push(element);
-        } else if (res <=ed && res>=dd) {
+        } else if (res <= ed && res >= dd) {
           ongoing.push(element);
         } else
           upcoming.push(element);
@@ -457,36 +457,43 @@ app.post("/addevent", (req, res) => {
   }
 })
 
-app.post("/custom",(req,res)=>{
-  if(req.isAuthenticated())
-  {
-    res.redirect("/"+req.body.info);}
-    else
+app.post("/custom", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/" + req.body.info);
+  } else
     res.redirect("/login");
 })
 
-app.get("/:custom_routes",(req,res)=>{
-  if(req.isAuthenticated()){
-  Custom_route_Name = req.params.custom_routes;
-  event.findById(Custom_route_Name,(err,docs)=>{
-    res.render("info",{ele:docs});
-  })
-  
-  }
-  else
-  res.redirect("/login");
+app.get("/:custom_routes", (req, res) => {
+  if (req.isAuthenticated()) {
+    Custom_route_Name = req.params.custom_routes;
+    try {
+      event.findById(Custom_route_Name, (err, docs) => {
+          if (err)
+            res.redirect("/");
+          console.log(docs);
+          
+          res.render("info", {
+            ele: docs
+          });
+      })
+
+    } catch (err) {
+      res.redirect("/");
+    }
+
+  } else
+    res.redirect("/login");
 
 
 })
 
-app.post("/register",(req,res)=>{
-  if(req.isAuthenticated())
-  {
+app.post("/register", (req, res) => {
+  if (req.isAuthenticated()) {
     console.log(req.body);
     res.redirect("/home");
-  }
-  else
-  res.redirect("/login");
+  } else
+    res.redirect("/login");
 
 })
 
