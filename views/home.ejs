@@ -26,6 +26,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+  <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
+  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  
   <%- include('partials/header') %>
 
   <style>
@@ -81,7 +85,7 @@
 
     /* Navigation Bar */
 
-    .navbar {
+    /* .navbar {
       padding: 0 0 4.5rem;
     }
 
@@ -98,7 +102,7 @@
     .nav-link {
       font-size: 1.2rem;
       font-family: "Montserrat-Light";
-    }
+    } */
 
     /* Buttons */
 
@@ -238,26 +242,54 @@
     /* .fillme {
       background-color: #696969;
     } */
-    .ii{
+    .ii {
       color: #00BBFF;
     }
+
+
+    #brand-logo {
+      font-size: 34px
+    }
+
+    #app-navbar {
+      background: linear-gradient(120deg, #0cf9e5, #5a84eb)
+    }
+
+    body {
+      background: #eee
+    }
   </style>
+
 </head>
 
 
 
 <body>
   <% if(_status!=''){%>
-    <% if(_status=="1"){%>
-        <div class="alert alert-success" role="alert">
-        <h4><%=message%></h4></div>
-    <%}%>
+  <% if(_status=="1"){%>
+  <div class="alert alert-success" role="alert">
+    <h4><%=message%></h4>
+  </div>
+  <%}%>
     <% if(_status=="2"){ %>
-        <div class="alert alert-danger" role="alert">
-        <h4><%=message%></h4></div>
-    <% } %> 
-    
-    <% } %> 
+  <div class="alert alert-danger" role="alert">
+    <h4><%=message%></h4>
+  </div>
+  <% } %>
+
+  <% } %>
+  <nav class="navbar navbar-dark navbar-expand-md" id="app-navbar">
+    <div class="row"><a class="navbar-brand" href="#"></a>
+      <div class="collapse navbar-collapse ml-auto" id="navcol-1">
+        <ul  class="nav navbar-nav ml-auto " style="text-align: left;">
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="/">Home</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="/home">Events</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="/myregisters">My Events</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="/about_us">Aboutus</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="fillme">
     <hr><br>
     <h1 class="ii">Ongoing Event</h1><br>

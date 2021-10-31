@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enovents!</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet">
+    <%- include('partials/header') %>
+
+    <style>
+      .container {
+        
+        /* border: 1px solid red; */
+        margin: 50 auto;
+        margin-left: 1%;
+      }
+      .col {
+        width: 100%;
+        
+       
+        background-color: #f1f1f1;
+        float: left;
+        text-align: center;
+        padding-left: 50px;
+        margin-left: 100px;
+        margin-top: 30px;
+        border-radius: 5px;
+      }
+      .container1 {
+        text-align: center;
+      }
+      hr.beautiful-line {
+        border-top: 1px solid #999;
+        width: 90%;
+      }
+      .top {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 50px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        margin-bottom: -30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 class="top">Registered Events</h1>
+    <div class="container">
+      <div class="col">
+
+        <%info.forEach(element => { %>
+          
+          <h2 style="font-family: 'Calistoga', cursive;"><%= element.event_name %></h2>
+          <br>
+          <h3><%= element.event_organizer %></h3>
+          <br>
+          <h2><%= element.start_date %> </h2> <h3>to</h3> <h2><%= element.end_date %></h2>
+
+
+          <hr class="beautiful-line" />
+          
+        <% }); %>
+         
+        <% if(info == "Na"){%>
+          <h1>"No Events Registered!"</h1>
+        <% } %>
+        
+        
+        
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

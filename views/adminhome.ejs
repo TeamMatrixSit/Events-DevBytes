@@ -61,9 +61,7 @@
 
     /* Containers */
 
-    .container-fluid {
-      padding: 7% 15%;
-    }
+ 
 
     /* Sections */
 
@@ -78,24 +76,7 @@
 
     /* Navigation Bar */
 
-    .navbar {
-      padding: 0 0 4.5rem;
-    }
 
-    .navbar-brand {
-      font-family: "Ubuntu";
-      font-size: 2.5rem;
-      font-weight: bold;
-    }
-
-    .nav-item {
-      padding: 0 18px;
-    }
-
-    .nav-link {
-      font-size: 1.2rem;
-      font-family: "Montserrat-Light";
-    }
 
     /* Buttons */
 
@@ -239,28 +220,25 @@
     
     <% } %> 
   <section class="colored-section" id="title">
-    <div class="container-fluid">
+    <div class="">
       <!-- Nav Bar -->
 
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="">Enovents</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about_us">About Us</a>
-            </li>
-
-          </ul>
-        </div>
-      </nav>
+         <nav class="navbar navbar-dark navbar-expand-sm" id="app-navbar">
+          <h2>Enovents</h2>
+          <div class="row"><a class="navbar-brand" href="#"></a>
+            <div class="collapse navbar-collapse " id="navcol-1">
+              <ul  class="nav navbar-nav ml-auto ">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="/">Home</a></li>
+                
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="/login">Login(user)</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="/about_us">Aboutus</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
 
       <!-- Title
 

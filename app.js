@@ -87,7 +87,7 @@ const eventuserSchema = new mongoose.Schema({
   user_id: String,
   event_organizer: String,
   start_date: String,
-  end_date:String
+  end_date: String
 })
 
 
@@ -101,7 +101,7 @@ adminSchema.plugin(findOrCreate);
 const user = mongoose.model('user', userSchema);
 const admin = mongoose.model('admin', adminSchema);
 const event = mongoose.model('event', eventSchema);
-const eventuser = mongoose.model("eventuser",eventuserSchema);
+const eventuser = mongoose.model("eventuser", eventuserSchema);
 
 passport.use(user.createStrategy());
 
@@ -216,11 +216,11 @@ passport.use('login', new localStrategy({
     bcrypt.compare(req.body.user_password, user.password, function (err, res) {
       if (res) {
         req.flash("status", "1");
-      req.flash("msg", "Successfully logged In!");
+        req.flash("msg", "Successfully logged In!");
         return done(null, user);
       } else {
         req.flash("status", "2");
-      req.flash("msg", "Invalid Password!");
+        req.flash("msg", "Invalid Password!");
 
         return done(null, false, {
           message: 'Incorrect password.'
@@ -257,11 +257,11 @@ passport.use('admin-login', new localStrategy({
     bcrypt.compare(req.body.admin_password, user.password, function (err, res) {
       if (res) {
         req.flash("status", "1");
-      req.flash("msg", "Welcome Admin!");
+        req.flash("msg", "Welcome Admin!");
         return done(null, user);
       } else {
         req.flash("status", "2");
-      req.flash("msg", "Oops Wrong Password!");
+        req.flash("msg", "Oops Wrong Password!");
         return done(null, false, {
           message: 'Incorrect password.'
         });
@@ -283,19 +283,19 @@ passport.use(new GoogleStrategy({
   function (accessToken, refreshToken, profile, cb) {
     const validatingmail = profile.emails[0].value;
     if (validatingmail.endsWith("@sairamtap.edu.in")) {
-    user.findOrCreate({
-      googleId: profile.id,
-      name: profile.displayName,
-      emailId: profile.emails[0].value
-    }, function (err, user) {
-      
-      return cb(err, user);
-    });
-  }else {
-    // req.flash("status", "2");
-    //   req.flash("msg", "Please Use Official Mail, Else Use Signup ");
-    return cb(null, false);
-  }
+      user.findOrCreate({
+        googleId: profile.id,
+        name: profile.displayName,
+        emailId: profile.emails[0].value
+      }, function (err, user) {
+
+        return cb(err, user);
+      });
+    } else {
+      // req.flash("status", "2");
+      //   req.flash("msg", "Please Use Official Mail, Else Use Signup ");
+      return cb(null, false);
+    }
 
   }
 ));
@@ -370,7 +370,7 @@ app.route("/login")
       message,
       _status
     });
-   
+
   })
 
 app.get("/home", (req, res) => {
@@ -404,13 +404,13 @@ app.get("/home", (req, res) => {
       });
 
       const message = req.flash("msg");
-    const _status = req.flash("status");
+      const _status = req.flash("status");
       res.render("home", {
         miss: missed,
         on: ongoing,
         up: upcoming,
         message,
-      _status
+        _status
       });
     })
 
@@ -421,25 +421,24 @@ app.get("/home", (req, res) => {
 })
 
 app.get("/adminhome", (req, res) => {
-  if (req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     const message = req.flash("msg");
     const _status = req.flash("status");
     res.render("adminhome", {
       message,
       _status
     });
-    }
-  else
+  } else
     res.redirect("/adminlogin");
 })
 
 app.get("/signup", (req, res) => {
   const message = req.flash("msg");
-    const _status = req.flash("status");
-    res.render("signup", {
-      message,
-      _status
-    });
+  const _status = req.flash("status");
+  res.render("signup", {
+    message,
+    _status
+  });
 
 });
 
@@ -474,20 +473,18 @@ app.post('/adminlogin',
 
 
 app.get("/adminsignup", (req, res) => {
-  if(req.isAuthenticated())
-  { const message = req.flash("msg");
-  const _status = req.flash("status");
-  res.render("adminsignup", {
-    message,
-    _status
-  });
-   
-  }
-  else
-  {
+  if (req.isAuthenticated()) {
+    const message = req.flash("msg");
+    const _status = req.flash("status");
+    res.render("adminsignup", {
+      message,
+      _status
+    });
+
+  } else {
     res.redirect("/adminlogin");
   }
-  
+
 });
 
 app.post('/adminsignup', passport.authenticate('admin-signup', {
@@ -501,11 +498,11 @@ app.get("/", (req, res) => {
 app.get("/addevent", (req, res) => {
   if (req.isAuthenticated()) {
     const message = req.flash("msg");
-  const _status = req.flash("status");
-  res.render("addevent", {
-    message,
-    _status
-  });
+    const _status = req.flash("status");
+    res.render("addevent", {
+      message,
+      _status
+    });
   } else {
     res.redirect("/adminlogin");
   }
@@ -531,7 +528,7 @@ app.post("/addevent", (req, res) => {
 
     eventx.save();
     req.flash("status", "1");
-      req.flash("msg", "Successfully Added Event To Our Site!");
+    req.flash("msg", "Successfully Added Event To Our Site!");
     res.redirect("/adminhome");
   } else {
     res.redirect("/adminlogin");
@@ -548,6 +545,33 @@ app.get("/about_us", (req, res) => {
   res.render("about_us");
 })
 
+
+app.get("/myregisters", (req, res) => {
+
+  if (req.isAuthenticated()) {
+    const userid = req.user.id;
+    eventuser.find({
+      user_id: userid
+    }, (err, docs) => {
+      if (err)
+        console.log(err);
+      if (docs) {
+        
+        res.render("myregister", {
+          info: docs
+        });
+      } else {
+        res.render("myregister", {
+          info: "Na"
+        });
+      }
+    })
+
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.post("/register", (req, res) => {
   if (req.isAuthenticated()) {
     const userid = req.user._id;
@@ -555,30 +579,46 @@ app.post("/register", (req, res) => {
       if (err)
         console.log(err);
       if (docs) {
-        event.findById(req.body.info,(err,docx)=>{
-          if(err)
-          console.log(err)
-          if(docx)
-          {
-            const eventuserx = new eventuser({
-              event_name: docx.event_name,
-              user_id: docs._id,
-              event_organizer: docx.event_organizer,
-              start_date:docx.start_date,
-              end_date:docx.end_date
-            });
+        event.findById(req.body.info, (err, docx) => {
+          if (err)
+            console.log(err)
+          if (docx) {
+            if (eventuser.find({
+                event_name: docx.event_name,
+                user_id: docs.id
+              }, (err, found) => {
+                if (err)
+                  console.log(err);
+                if (found) {
+                  req.flash("status", "2");
+                  req.flash("msg", "Already Registered For This Event!");
 
-            eventuserx.save();
+                } else {
+
+                  const eventuserx = new eventuser({
+                    event_name: docx.event_name,
+                    user_id: docs._id,
+                    event_organizer: docx.event_organizer,
+                    start_date: docx.start_date,
+                    end_date: docx.end_date
+                  })
+                  eventuserx.save();
+                }
+              }))
+             eventusddrx = new eventuser({
+                event_name: docx.event_name,
+                user_id: docs._id,
+                event_organizer: docx.event_organizer,
+                start_date: docx.start_date,
+                end_date: docx.end_date
+              })
           }
         })
-        
+
       }
-      const message = req.flash("msg");
-    const _status = req.flash("status");
-    res.render("home", {
-      message,
-      _status
-    });
+      req.flash("status", "1");
+      req.flash("msg", "Successfully Registered!");
+      res.redirect("/home");
 
     })
   } else
@@ -608,6 +648,8 @@ app.get("/:custom_routes", (req, res) => {
 
 
 })
+
+
 
 
 
