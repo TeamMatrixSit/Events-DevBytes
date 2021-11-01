@@ -695,10 +695,6 @@ app.get("/:custom_routes", (req, res) => {
 
 })
 
-
-
-
-
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started sucessfully")
 });
