@@ -422,12 +422,21 @@ app.get("/home", (req, res) => {
 
 app.get("/adminhome", (req, res) => {
   if (req.isAuthenticated()) {
-    const message = req.flash("msg");
-    const _status = req.flash("status");
-    res.render("adminhome", {
-      message,
-      _status
-    });
+    admin.findById(req.user.id, (err, docs) => {
+      if (docs) {
+        const message = req.flash("msg");
+        const _status = req.flash("status");
+        res.render("adminhome", {
+          message,
+          _status
+        });
+      } else {
+        req.flash("status", "2");
+        req.flash("msg", "Only Admin Can Access!");
+        res.redirect("/adminlogin");
+      }
+    })
+
   } else
     res.redirect("/adminlogin");
 })
@@ -474,12 +483,21 @@ app.post('/adminlogin',
 
 app.get("/adminsignup", (req, res) => {
   if (req.isAuthenticated()) {
-    const message = req.flash("msg");
-    const _status = req.flash("status");
-    res.render("adminsignup", {
-      message,
-      _status
-    });
+    admin.findById(req.user.id, (err, docs) => {
+      if (docs) {
+        const message = req.flash("msg");
+        const _status = req.flash("status");
+        res.render("adminsignup", {
+          message,
+          _status
+        });
+      } else {
+        req.flash("status", "2");
+        req.flash("msg", "Only Admin Can Access!");
+        res.redirect("/adminlogin");
+      }
+    })
+
 
   } else {
     res.redirect("/adminlogin");
@@ -497,12 +515,21 @@ app.get("/", (req, res) => {
 
 app.get("/addevent", (req, res) => {
   if (req.isAuthenticated()) {
-    const message = req.flash("msg");
-    const _status = req.flash("status");
-    res.render("addevent", {
-      message,
-      _status
-    });
+    admin.findById(req.user.id, (err, docs) => {
+      if (docs) {
+        const message = req.flash("msg");
+        const _status = req.flash("status");
+        res.render("addevent", {
+          message,
+          _status
+        });
+      } else {
+        req.flash("status", "2");
+        req.flash("msg", "Only Admin Can Access!");
+        res.redirect("/adminlogin");
+      }
+    })
+
   } else {
     res.redirect("/adminlogin");
   }
@@ -549,23 +576,32 @@ app.get("/about_us", (req, res) => {
 app.get("/myregisters", (req, res) => {
 
   if (req.isAuthenticated()) {
-    const userid = req.user.id;
-    eventuser.find({
-      user_id: userid
-    }, (err, docs) => {
-      if (err)
-        console.log(err);
+    user.findById(req.user.id, (err, docs) => {
       if (docs) {
-        
-        res.render("myregister", {
-          info: docs
-        });
+        const userid = req.user.id;
+        eventuser.find({
+          user_id: userid
+        }, (err, docs) => {
+          if (err)
+            console.log(err);
+          if (docs) {
+
+            res.render("myregister", {
+              info: docs
+            });
+          } else {
+            res.render("myregister", {
+              info: "Na"
+            });
+          }
+        })
       } else {
-        res.render("myregister", {
-          info: "Na"
-        });
+        req.flash("status", "2");
+        req.flash("msg", "Admin Can't Access, Login As User !");
+        res.redirect("/home");
       }
     })
+
 
   } else {
     res.redirect("/login");
@@ -574,53 +610,63 @@ app.get("/myregisters", (req, res) => {
 
 app.post("/register", (req, res) => {
   if (req.isAuthenticated()) {
-    const userid = req.user._id;
-    user.findById(userid, (err, docs) => {
-      if (err)
-        console.log(err);
+    user.findById(req.user.id, (err, docs) => {
       if (docs) {
-        event.findById(req.body.info, (err, docx) => {
+        const userid = req.user._id;
+        user.findById(userid, (err, docs) => {
           if (err)
-            console.log(err)
-          if (docx) {
-            if (eventuser.find({
-                event_name: docx.event_name,
-                user_id: docs.id
-              }, (err, found) => {
-                if (err)
-                  console.log(err);
-                if (found) {
-                  req.flash("status", "2");
-                  req.flash("msg", "Already Registered For This Event!");
+            console.log(err);
+          if (docs) {
+            event.findById(req.body.info, (err, docx) => {
+              if (err)
+                console.log(err)
+              if (docx) {
+                if (eventuser.find({
+                    event_name: docx.event_name,
+                    user_id: docs.id
+                  }, (err, found) => {
+                    if (err)
+                      console.log(err);
+                    if (found) {
+                      req.flash("status", "2");
+                      req.flash("msg", "Already Registered For This Event!");
 
-                } else {
+                    } else {
 
-                  const eventuserx = new eventuser({
+                      const eventuserx = new eventuser({
+                        event_name: docx.event_name,
+                        user_id: docs._id,
+                        event_organizer: docx.event_organizer,
+                        start_date: docx.start_date,
+                        end_date: docx.end_date
+                      })
+                      eventuserx.save();
+                    }
+                  }))
+                  eventusddrx = new eventuser({
                     event_name: docx.event_name,
                     user_id: docs._id,
                     event_organizer: docx.event_organizer,
                     start_date: docx.start_date,
                     end_date: docx.end_date
                   })
-                  eventuserx.save();
-                }
-              }))
-             eventusddrx = new eventuser({
-                event_name: docx.event_name,
-                user_id: docs._id,
-                event_organizer: docx.event_organizer,
-                start_date: docx.start_date,
-                end_date: docx.end_date
-              })
+              }
+            })
+
           }
+          req.flash("status", "1");
+          req.flash("msg", "Successfully Registered!");
+          res.redirect("/home");
         })
-
+      } else {
+        req.flash("status", "2");
+        req.flash("msg", "Sorry Admin Can't Register, Login As User!");
+        res.redirect("/home");
       }
-      req.flash("status", "1");
-      req.flash("msg", "Successfully Registered!");
-      res.redirect("/home");
-
     })
+
+
+
   } else
     res.redirect("/login");
 
