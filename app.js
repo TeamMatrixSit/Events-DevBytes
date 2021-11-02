@@ -621,7 +621,7 @@ app.post("/register", (req, res) => {
               if (err)
                 console.log(err)
               if (docx) {
-                if (eventuser.find({
+                eventuser.find({
                     event_name: docx.event_name,
                     user_id: docs.id
                   }, (err, found) => {
@@ -642,14 +642,8 @@ app.post("/register", (req, res) => {
                       })
                       eventuserx.save();
                     }
-                  }))
-                  eventusddrx = new eventuser({
-                    event_name: docx.event_name,
-                    user_id: docs._id,
-                    event_organizer: docx.event_organizer,
-                    start_date: docx.start_date,
-                    end_date: docx.end_date
                   })
+                 
               }
             })
 
