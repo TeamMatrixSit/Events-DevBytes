@@ -33,13 +33,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TeamMatrixSit/Events-DevBytes.git"
+    "url": "git+https://github.com/Spark1609/Events-DevBytes.git"
   },
   "keywords": [],
   "author": "TeamMatrix",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TeamMatrixSit/Events-DevBytes/issues"
+    "url": "https://github.com/Spark1609/Events-DevBytes/issues"
   },
-  "homepage": "https://github.com/TeamMatrixSit/Events-DevBytes#readme"
+  "homepage": "https://github.com/Spark1609/Events-DevBytes#readme"
 }
