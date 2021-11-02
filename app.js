@@ -87,7 +87,8 @@ const eventuserSchema = new mongoose.Schema({
   user_id: String,
   event_organizer: String,
   start_date: String,
-  end_date: String
+  end_date: String,
+  event_id: String
 })
 
 
@@ -139,7 +140,7 @@ passport.use('signup', new localStrategy({
     if (err)
       return done(err)
     if (docs) {
-
+     
       return done(null, false);
     } else {
       const name = req.body.user_username;
@@ -171,6 +172,7 @@ passport.use('admin-signup', new localStrategy({
     if (err)
       return done(err)
     if (docs) {
+
       return done(null, false);
     } else {
       const name = req.body.admin_username;
@@ -585,13 +587,33 @@ app.get("/myregisters", (req, res) => {
           if (err)
             console.log(err);
           if (docs) {
+            documenting=[]
+            docs.forEach(element=>{
+              var dd = element.start_date;
+              var ed = element.end_date;
+              dd = dd.toString();
+      
+      
+              var rightNow = new Date();
+              var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "-");
+              res = res.toString();
+      
+      
+              if (res > ed) {
+                
+              } else if (res <= ed && res >= dd) {
+                
+              } else
+                documenting.push(element);
+            })
+           
 
             res.render("myregister", {
-              info: docs
+              info: documenting
             });
           } else {
             res.render("myregister", {
-              info: "Na"
+              info: {}
             });
           }
         })
@@ -612,54 +634,53 @@ app.post("/register", (req, res) => {
   if (req.isAuthenticated()) {
     user.findById(req.user.id, (err, docs) => {
       if (docs) {
-        const userid = req.user._id;
-        user.findById(userid, (err, docs) => {
+
+        event.findById(req.body.info, (err, docx) => {
           if (err)
-            console.log(err);
-          if (docs) {
-            event.findById(req.body.info, (err, docx) => {
-              if (err)
-                console.log(err)
-              if (docx) {
-                eventuser.find({
-                    event_name: docx.event_name,
-                    user_id: docs.id
-                  }, (err, found) => {
-                    if (err)
-                      console.log(err);
-                    if (found) {
-                      req.flash("status", "2");
-                      req.flash("msg", "Already Registered For This Event!");
+            console.log(err)
+          if (docx) {
 
-                    } else {
+            eventuser.find({
+              user_id: docs.id,
+              event_id: docx.id
+            }, (err, document) => {
+              if (document != '') {
 
-                      const eventuserx = new eventuser({
-                        event_name: docx.event_name,
-                        user_id: docs._id,
-                        event_organizer: docx.event_organizer,
-                        start_date: docx.start_date,
-                        end_date: docx.end_date
-                      })
-                      eventuserx.save();
-                    }
-                  })
-                 
+                req.flash("status", "2");
+                req.flash("msg", "Already Registered For The Event!")
+                res.redirect("/home");
+              } else {
+                const eventuserx = new eventuser({
+                  event_name: docx.event_name,
+                  user_id: docs._id,
+                  event_organizer: docx.event_organizer,
+                  start_date: docx.start_date,
+                  end_date: docx.end_date,
+                  event_id: docx.id
+                });
+
+                eventuserx.save();
+                req.flash("status", "1");
+                req.flash("msg", "Successfully Registered For The Event!");
+                res.redirect("/home");
               }
             })
 
+
+
           }
-          req.flash("status", "1");
-          req.flash("msg", "Successfully Registered!");
-          res.redirect("/home");
         })
+
+
+
+
+
       } else {
         req.flash("status", "2");
-        req.flash("msg", "Sorry Admin Can't Register, Login As User!");
+        req.flash("msg", "Sorry Admins Can't Register, Login As User");
         res.redirect("/home");
       }
     })
-
-
 
   } else
     res.redirect("/login");
